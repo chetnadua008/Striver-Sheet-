@@ -1,0 +1,23 @@
+//sub array = set of consecutive elements of the array
+//sub sequence = set of non consecutive elements of array
+
+
+//brute force
+//get all the the sub arrays of length  n, n-1, n-2 .... 3,2,1 in order while comparing their sum
+
+int lenOfLongestSubarr(vector <int> & arr, int k) {
+        int n=arr.size();
+         for(int i=n;i>=1;i--){
+            for(int l=0;l<=n-i;l++){
+                int sum=0;
+                for(int j=0;j<i;j++){
+                sum+=arr[j+l];    
+                }
+                if(sum==k) return i;
+               
+            }
+           
+       }
+}
+
+
