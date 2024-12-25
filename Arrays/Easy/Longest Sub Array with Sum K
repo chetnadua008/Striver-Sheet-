@@ -3,21 +3,41 @@
 
 
 //brute force
-//get all the the sub arrays of length  n, n-1, n-2 .... 3,2,1 in order while comparing their sum
 
 int lenOfLongestSubarr(vector <int> & arr, int k) {
         int n=arr.size();
-         for(int i=n;i>=1;i--){
-            for(int l=0;l<=n-i;l++){
-                int sum=0;
-                for(int j=0;j<i;j++){
-                sum+=arr[j+l];    
-                }
-                if(sum==k) return i;
-               
+        int len=0;
+        int sum=0;
+
+        for(int i=0;i<n;i++){
+            for(int j=i;j<n;j++){
+                sum=0;
+                for(int k=i;k<=j;k++)
+                    sum+=arr[k];
+                
+                if(sum==k) len=max(len,j-i+1);
             }
-           
-       }
-}
+        }
+        return len;
+    }
+Time Complexity: O(N^3)
+Space Complexity: O(1)
 
+//optimized brute force
 
+int lenOfLongestSubarr(vector <int> & arr, int k) {
+        int n=arr.size();
+        int len=0;
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum=0;
+            for(int j=i;j<n;j++){
+                sum+=arr[j];
+                if(sum==k)
+                    len=max(len,j-i+1);
+            }
+        }
+        return len;
+    }
+Time Complexity: O(N^2)
+Space Complexity: O(1)
