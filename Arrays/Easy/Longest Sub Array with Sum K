@@ -65,7 +65,7 @@ Time Complexity : O(nlogn) using ordered map
                 : O(n * 1) using unordered map (best case)
                 : O(n * n) using unordered map (worst case)
 
-//optimal solution (two pointer approach) (array does not have negative values)
+//optimal solution (two pointer approach) (array with positive values)
 
 int lenOfLongestSubarr(vector <int> &arr, int k){
         int left=0,right=0;
