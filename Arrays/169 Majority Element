@@ -1,0 +1,65 @@
+//brute force apporach
+for(int i=0;i<nums.size();i++){
+            int cnt=0;
+            for(int j=0;j<nums.size();j++){
+                if(nums[i]==nums[j])
+                cnt++;
+            }
+            if(cnt>nums.size()/2)
+            return nums[i];
+}
+return -1;
+Time complexity: O(N^2)
+Space complexity: O(1)
+
+//better -hashing
+map <int,int> mpp;
+for(int i=0;i<nums.size();i++){
+    mpp[nums[i]]++;
+}
+for(auto it:mpp){
+    if(it.second>nums.size()/2)
+        return it.first;
+}
+return -1;
+Time complexity: O(NlogN) + O(N)-worst case {1,2,3,4,5}
+Space Complexity: O(N) -worst case {1,2,3,4,5}
+
+//better sorting 
+sort(nums.begin(),nums.end());
+int cnt=1;
+for(int i=1;i<nums.size();i++){
+    if(nums[i]==nums[i-1])
+        cnt++;
+    else
+        cnt=1;
+    if(cnt>nums.size()/2)   
+        return nums[i];
+}
+return nums[0];
+Time complexity: O(NlogN + N)
+Space complexity: O(1)
+
+//optimal - MOORE VOTING ALGORITHM 
+int freq=0;
+int ans;
+for(int i=0;i<nums.size();i++){
+    if(freq==0){
+        ans=nums[i];
+    }
+    if(nums[i]==ans){
+        freq++;
+    }
+    else{
+        freq--;
+    }
+}
+//*remove below code if majority element must exist in question*
+cnt=0;
+for(int i=0;i<nums.size();i++){
+    if(ans==nums[i]) cnt++;
+}
+if(cnt>nums.size()/2) return ans;
+Time complexity: O(N)
+Space complexity: O(1)
+        
