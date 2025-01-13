@@ -1,0 +1,39 @@
+//nested loop
+vector<int> twoSum(vector<int>& nums, int target) {
+    for(int i=0;i<nums.size();i++){
+        for(int j=i+1;j<nums.size();j++){
+            if(nums[i]+nums[j]==target)
+                return {i,j};
+        }
+    }
+    return {-1,-1};
+}
+time complexity: O(N^2)
+space complexity: O(1)
+
+//hashing
+vector<int> twoSum(vector<int>& nums, int target) {
+    map <int,int> mpp;
+    for(int i=0;i<nums.size();i++){
+        int more=target-nums[i];
+        if(mpp.find(more)!=mpp.end()){
+            return {i,mpp[more]};
+        }
+        else
+        mpp[nums[i]]=i;
+    }
+    return {-1,-1};
+}
+time complexity: O(NlogN)
+space complexity: O(n) worst case (first + last element = target)
+
+//sort , two pointer approach for YES/NO (does not return indexes after sorted) and cant even save indexes if there are two same elements usign a map
+sort(nums.begin(),nums.end());
+int left=0;
+int right=nums.size()-1;
+while(left<right){
+    if(nums[left]+nums[right]<target) left++;
+    else if(nums[left]+nums[right]>target) right--;
+    else return "YES";
+}
+return "NO";
