@@ -1,0 +1,52 @@
+//brute force (nested loop)
+for(int i=0;i<nums.size();i++){
+    int count=0;
+    for(int j=0;j<nums.size();j++){
+        if(nums[i]==nums[j]) count++;
+    }
+    if(count>nums.size()/2) return nums[i];
+}
+return nums[0];
+time complexity: O(N^2)
+space complexity: O(1)
+
+//hashing
+map <int , int> mpp;
+for(int i=0;i<nums.size();i++){
+    mpp[nums[i]]++;
+}
+for(auto it:mpp){
+    if(it.second > nums.size()/2)
+        return it.first;
+}
+return 01;
+time complexity: O(N)
+space complexity: O(N) worst case
+
+//sort and keep counting 
+sort(nums.begin(),nums.end());
+int freq=1;
+for(int i=1;i<nums.size();i++){
+        if(nums[i]==nums[i-1]) freq++;
+        else freq=1;
+        if(freq>nums.size()/2) return nums[i];
+}
+time complexity: O(N log N + N)
+space complexity: O(1)
+
+return nums[0];
+//moore's voting algorithm
+int elem = nums[0];
+int freq=1;
+for(int i=1;i<nums.size();i++){
+    if (freq==0){
+        elem = nums[i];
+        freq=0;
+    }
+    if(elem==nums[i]) freq++;
+    else freq--;
+}
+return elem;
+time complexity: O(N)
+space complexity: O(1)
+
