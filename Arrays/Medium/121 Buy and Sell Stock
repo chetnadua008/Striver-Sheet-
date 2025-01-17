@@ -1,0 +1,13 @@
+//to sell a stock on particlar date, buy it at minimum price, get the maximum profit difference
+int maxProfit = INT_MIN;
+int minPrice = nums[0];
+for(int i=1;i<nums.size();i++){
+    maxProfit = max(maxProfit,nums[i]-minPrice);
+    minPrice = min(minPrice,nums[i]);//update before jumping to next price
+}
+if (maxProfit>0)
+return maxProfit;
+else 
+return 0;
+time complexity: O(N)
+space complexity: O(1)
