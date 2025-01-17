@@ -39,6 +39,11 @@ int maxSubArray(vector<int>& nums) {
     }
     return maxi;
 }
+time complexity: O(N)
+space complexity: O(1)
+principle: sum contains maximum sub array sum ending at nums[i]. maxs is maximum value of sum for nums[i], i=0 to n-1
+//sum gets largest by dropping it if its negative else carry it further if its positive
+
 
 //follow up question (print the sub array with longest sum)
 int maxi=INT_MIN;
