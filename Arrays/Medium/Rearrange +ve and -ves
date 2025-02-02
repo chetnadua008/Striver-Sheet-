@@ -1,0 +1,18 @@
+TC: O(N)
+SC:O(N)
+        //+ve h to even location per rkh dia (i=0,2,4...)
+        //-ve h to odd per(j=1,3,5....)
+        vector <int> res (nums.size());
+        int i=0,j=1;
+        for(int k=0;k<nums.size();k++){
+            if(nums[k]<0){
+                res[j]=nums[k];
+                j=j+2;
+            }
+            else{
+                res[i]=nums[k];
+                i=i+2;
+            }
+        }
+       
+        return res;
