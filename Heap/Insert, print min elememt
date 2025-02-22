@@ -1,0 +1,82 @@
+link to problem : https://www.naukri.com/code360/problems/min-heap_4691801?topList=striver-sde-sheet-problems&utm_source=striver&utm_medium=website&leftPanelTabValue=SUBMISSION
+
+#include <bits/stdc++.h> 
+void insert_heap(vector <int> &min_heap,int elem );
+void bubble_up_insert(vector <int> &min_heap,int i );
+void print_and_pop(vector <int> &min_heap);
+void min_heapify_top(vector <int> &min_heap,int i);
+
+void insert_heap(vector <int> &min_heap, int x){
+    //insert element at the end of heap
+    min_heap.push_back(x);
+    //heapify up the last element just inserted
+    bubble_up_insert(min_heap,min_heap.size()-1);
+   
+    
+}
+void bubble_up_insert(vector <int> &min_heap,int i){
+    //reached the root element after heapifyin up then return
+    if( i==0 ) return;
+    //calculate the parent of element
+    int parent = (i-1)/2;
+    //compare if parent>child that voilates min heap property
+    if(min_heap[parent]> min_heap[i]){
+        //swap parent with the smaller child
+        swap(min_heap[parent],min_heap[i]);
+        //check property voilation on the smaller parent with its parent
+        bubble_up_insert(min_heap,parent);
+    }
+}
+void print_and_pop(vector <int> &min_heap,vector <int> &result){
+    //return if no element on the root
+    if(min_heap.size()==0) return;
+    //push the minimum element as the result vector
+    result.push_back(min_heap[0]);
+    //swap root (min) with the last element
+    swap(min_heap[0],min_heap[min_heap.size()-1]);
+    //delete the last element (included in result)
+    min_heap.pop_back();
+    //cross check heap property of root with the left and right subtree
+    min_heapify_top(min_heap,0);
+}
+void min_heapify_top(vector <int> &min_heap, int i) {
+    //index of left subtree
+    int left = 2 * i + 1;
+    //index of right subtree
+    int right = 2 * i + 2;
+    //index of current parent
+    int smaller = i; // Assume current node is the smallest
+    int n = min_heap.size();
+
+   //check which of right left or parent is actually smaller's index
+    if (left < n && min_heap[left] < min_heap[smaller]) {
+        smaller = left;
+    }
+
+  
+    if (right < n && min_heap[right] < min_heap[smaller]) {
+        smaller = right;
+    }
+
+    //when parent (current node) is not smaller 
+    if (smaller != i) {
+        swap(min_heap[i], min_heap[smaller]);//swap with left/right which ever child is smaller
+        min_heapify_top(min_heap, smaller);//cross check the heap property 
+    }
+}
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    vector <int> min_heap;
+    vector <int> result;//to save the result of 1 command
+    for(int i=0;i<n;i++){//iterate through all queries
+        int query = q[i][0];//command is 0(insert) or 1(min added to result)
+        if(query==0){
+                //q[i][1] is element to insert in the current query
+            insert_heap(min_heap,q[i][1]);
+        }
+        else{
+         
+            print_and_pop(min_heap,result);
+        }
+    }
+    return result;
+}
