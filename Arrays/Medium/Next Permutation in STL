@@ -1,0 +1,40 @@
+//time complexity: O(N + N + N) worst case
+//space complexity: O(1) no extra space for calculating
+//code for next_permuation(arr.begin(),arr.end()) method in STL
+
+class Solution {
+public:
+    void nextPermutation(vector<int>& nums) {
+
+        //  7  4 | 5  6  3  2  1   last permuation with prefix 7 4 _  _  _  _  _
+        //  7  6 | 5  4  3  2  1   after 7 4 , there is 7 6 (just greater than 4 in the right part)
+        //  7  6 | 1  2  3  4  5   reverse right part to get first permuation
+        //intuiion: last permutaion: decreasing number from left to right
+        //first permutationL: increasing from left to right
+       
+       
+        int dig=-1;
+        //find the dig (last permutation for that prefix)
+        for(int i=nums.size()-2;i>=0;i--){
+            if(nums[i]<nums[i+1]){
+                dig=i;
+                break;
+            }
+        }//no dig means it was the last permutation itself ie 3,2,1
+        if(dig==-1){ sort(nums.begin(),nums.end()); return;}
+        
+        
+        //just greater than dig in (increasing order from the right) to swap 
+        for(int i=nums.size()-1;i>dig;i--){
+            if(nums[i]>nums[dig]){
+                swap(nums[i],nums[dig]);
+                break;
+            }
+        }
+       
+       
+        //get first permuation for updated prefix.
+        reverse(nums.begin()+dig+1,nums.end());
+    }
+   
+};
