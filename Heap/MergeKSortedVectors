@@ -1,0 +1,52 @@
+//time complexity: O(n^2 logn)
+//space complexity: O(k)
+
+#include <bits/stdc++.h> 
+
+void heapify(vector <pair <int,int>> &minHeap,int i){
+    int left = 2 * i +1;
+    int right = 2 * i +2;
+    int smallest;
+    if(left <minHeap.size() && minHeap[left].first<minHeap[i].first){
+        smallest = left;
+    }
+    else{
+        smallest = i;
+    }
+    if(right < minHeap.size() && minHeap[right].first<minHeap[smallest].first){
+        smallest = right;
+    }
+    if(smallest!=i){
+        swap(minHeap[i],minHeap[smallest]);
+        heapify(minHeap,smallest);
+    }
+}
+vector<int> mergeKSortedArrays(vector<vector<int>>&kArrays, int k)
+{
+    vector <int> index (k,0) ;
+    vector <int> result;
+    vector <pair<int,int>> minHeap;
+    for(int i=0;i<k;i++){
+        minHeap.push_back({kArrays[i][index[i]++],i});
+    }
+    for(int i=minHeap.size()/2-1;i>=0;i--){
+        heapify(minHeap,i);
+    }
+    while(!minHeap.empty()){
+        result.push_back(minHeap[0].first);
+        int poppedArr=minHeap[0].second;
+        if(index[poppedArr]==kArrays[poppedArr].size()){
+            //replace with last element and pop back
+            swap(minHeap[0],minHeap[minHeap.size()-1]);
+            minHeap.pop_back();
+        }
+        else{
+            //replace with next element from that array
+            minHeap[0].first = kArrays[poppedArr][index[poppedArr]++];
+            
+        }
+        heapify(minHeap,0);
+    }
+    return result;
+}
+
