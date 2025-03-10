@@ -1,4 +1,4 @@
-//time complexity: O(n^2 logn)
+//time complexity: O(Nlogk) N = number of elements across all vectors, k = number of vectors
 //space complexity: O(k)
 
 #include <bits/stdc++.h> 
